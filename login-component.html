@@ -1,0 +1,97 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+
+
+<dom-module id="login-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+	 .signin{
+		display: none;
+	 }
+	 </style>
+    <div class="login">
+      <h2>Iniciar sesión</h2>
+      <p>¿No tienes cuenta? Da clic <paper-button on-tap="toggle">aquí</paper-button>
+      <paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
+      <paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
+      <paper-button on-tap="login">Iniciar sesión</paper-button>
+    </div>
+     <div class="signin" >
+		<h2>Iniciar sesión</h2>
+		<paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
+		<paper-input label="Correo" type="email" value="{{mail}}"></paper-input>
+		<paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
+		<paper-input label="Confirma Contraseña" type="password" value="{{passwordConfirm}}"></paper-input>
+
+		<paper-button on-tap="register">Registrar Usuario</paper-button>
+	</div>
+  </template>
+
+  <script>
+    /**
+     * `login-component`
+     * this is the first elemetn create whit polymer
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class LoginComponent extends Polymer.Element {
+      static get is() { return 'login-component'; }
+	  static get properties() {
+        return {
+          username: {
+            type: String,
+            value: ''
+          },
+          password: {
+            type: String,
+            value: ''
+          },
+		  passwordConfirm:{
+			 type: String,
+             value: ''
+		  },
+		  mail:{
+			  type:String,
+			  value:''
+		  },
+		  toggle:{
+			  type:Boolean,
+			  value:false
+		  }
+        
+        };
+      }
+	  //this function simulates the login of a user, the function compares hard-coding data, if username and password match with hard-			coding data, the function return true
+	  userAuthentication(username,password){
+		  let responseuser = ((username==="DavidSilvestre") && (password==="polymer")) ? true : false ;
+		  return responseuser;
+	  }
+	  //This function compares two passwords and returns true if the passwords are the same or false if the passwords are different
+	  comparePasswords(pasworone,passwordtwo){
+		  let responsepassword=(pasworone === passwordtwo) ? true : false;
+		  return responsepassword;
+	  }
+	  //this is an event, which is executed by clicking the "Iniciar sesión" button
+	  login(){
+        let  uservalidate= this.userAuthentication(this.username,this.password);
+		(uservalidate) ? alert("El usuario inicio sesión") : alert("Usuario o Contraseña incorrecta")
+      }
+	  //this is an event, which is executed by clicking the "Registrar usuario" button
+	  register(){
+		 let registeruser=this.comparePasswords(this.password,this.passwordConfirm);
+		  (registeruser) ? alert("Usuario Registrado") : alert("Las contraseñas no coiciden")
+	  }
+      toggle() {
+
+      }
+    } 
+    window.customElements.define(LoginComponent.is, LoginComponent);
+  </script>
+</dom-module>
