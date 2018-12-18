@@ -10,25 +10,24 @@
       :host {
         display: block;
       }
-	 .signin{
-		display: none;
-	 }
+	 
 	 </style>
-    <div class="login">
+    <div class="login" hidden$="{{!toggle}}">
       <h2>Iniciar sesión</h2>
-      <p>¿No tienes cuenta? Da clic <paper-button on-tap="toggle">aquí</paper-button>
+      <p>¿No tienes cuenta? Da clic <paper-button on-tap="toggleContainer">aquí</paper-button>
       <paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
       <paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
       <paper-button on-tap="login">Iniciar sesión</paper-button>
     </div>
-     <div class="signin" >
-		<h2>Iniciar sesión</h2>
-		<paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
-		<paper-input label="Correo" type="email" value="{{mail}}"></paper-input>
-		<paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
-		<paper-input label="Confirma Contraseña" type="password" value="{{passwordConfirm}}"></paper-input>
+    <div class="signin" hidden$="{{toggle}}">
+      <h2>Iniciar sesión</h2>
+      <p>Ya tienes cuenta Inicia sesión <paper-button on-tap="toggleContainer">aquí</paper-button>
+      <paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
+      <paper-input label="Correo" type="email" value="{{mail}}"></paper-input>
+      <paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
+      <paper-input label="Confirma Contraseña" type="password" value="{{passwordConfirm}}"></paper-input>
 
-		<paper-button on-tap="register">Registrar Usuario</paper-button>
+      <paper-button on-tap="register">Registrar Usuario</paper-button>
 	</div>
   </template>
 
@@ -53,18 +52,18 @@
             type: String,
             value: ''
           },
-		  passwordConfirm:{
-			 type: String,
-             value: ''
-		  },
-		  mail:{
-			  type:String,
-			  value:''
-		  },
-		  toggle:{
-			  type:Boolean,
-			  value:false
-		  }
+          passwordConfirm:{
+          type: String,
+                value: ''
+          },
+          mail:{
+            type:String,
+            value:''
+          },
+          toggle:{
+            type: Boolean,
+            value:true
+          }
         
         };
       }
@@ -88,10 +87,10 @@
 		 let registeruser=this.comparePasswords(this.password,this.passwordConfirm);
 		  (registeruser) ? alert("Usuario Registrado") : alert("Las contraseñas no coiciden")
 	  }
-      toggle() {
-
-      }
-    } 
+    toggleContainer(){
+      this.toggle=!this.toggle;  
+    }
+  } 
     window.customElements.define(LoginComponent.is, LoginComponent);
   </script>
 </dom-module>
