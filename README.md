@@ -1,17 +1,16 @@
 # \<login-component\>
 
-this is the first elemetn create whit polymer 
-This component simulates the authentication and registration of a user in a web application
+This is the first element created with polymer 
+This component simulates the authentication and sign-in of a user in a web application
 
 
-## fuctuins
-userAuthentication(username,password) :
+## Functions
+`userAuthentication(username,password) :`
 	this function simulates the login of a user, the function compares hard-coding data, if username and password match with hard-coding data, the function return true
 	the hard-coding:
-	 username: DavidSilvestre
-	 password:polymer
-
-comparePasswords()
+	 username: _DavidSilvestre_
+	 password: _polymer_
+`comparePasswords()`
 	This function compares two passwords and returns true if the passwords are the same or false if the passwords are different
 
 ## Install the Polymer-CLI
