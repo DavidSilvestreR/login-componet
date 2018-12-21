@@ -8,26 +8,45 @@
             :host {
                 display: block;
             }
+            h2{
+                text-align: center
+            }
+            .button-container{
+                text-align: center;
+            }
+            .blue{
+                background: #37a0ce;
+                color: white;
+                font-size: 500;
+            }
 
         </style>
         <div class="login" hidden$="{{!toggle}}">
             <h2>Iniciar sesión</h2>
             <p>¿No tienes cuenta? Da clic
                 <paper-button on-tap="toggleContainer">aquí</paper-button>
-                <paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
-                <paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
-                <paper-button on-tap="login">Iniciar sesión</paper-button>
+                <paper-input label="{{language.form.userName}}" value="{{username}}"></paper-input>
+                <paper-input label="{{language.form.password}}" type="password" value="{{password}}"></paper-input>
+                <div class="button-container">
+                    <paper-button class="blue" on-tap="login">{{language.form.login}}</paper-button>
+                </div>
+
         </div>
         <div class="signin" hidden$="{{toggle}}">
             <h2>Iniciar sesión</h2>
             <p>Ya tienes cuenta Inicia sesión
                 <paper-button on-tap="toggleContainer">aquí</paper-button>
-                <paper-input label="Nombre de usuario" value="{{username}}"></paper-input>
-                <paper-input label="Correo" type="email" value="{{mail}}"></paper-input>
-                <paper-input label="Contraseña" type="password" value="{{password}}"></paper-input>
-                <paper-input label="Confirma Contraseña" type="password" value="{{passwordConfirm}}"></paper-input>
+                <paper-input label="{{language.form.userName}}" value="{{username}}"></paper-input>
+                <paper-input label="{{language.form.name}}" value="{{firstName}}"></paper-input>
+                <paper-input label="{{language.form.lastName}}" value="{{lastName}}"></paper-input>
+                <paper-input label="{{language.form.age}}" value="{{age}}"></paper-input>
+                <paper-input label="{{language.form.email}}" type="email" value="{{email}}"></paper-input>
+                <paper-input label="{{language.form.password}}" type="password" value="{{password}}"></paper-input>
+                <paper-input label="{{language.form.confirmPassword}}" type="password" value="{{passwordConfirm}}"></paper-input>
+                <div class="button-container">
+                    <paper-button class="blue" on-tap="signin">{{language.form.register}}</paper-button>
+                </div>
 
-                <paper-button on-tap="register">Registrar Usuario</paper-button>
         </div>
     </template>
 
@@ -59,44 +78,71 @@
                         type: String,
                         value: ''
                     },
-                    mail: {
+                    email: {
                         type: String,
                         value: ''
                     },
                     toggle: {
                         type: Boolean,
                         value: true
+                    },
+                    firstName: {
+                        type: String,
+                        value: ''
+                    },
+                    lastName: {
+                        type: String,
+                        value: ''
+                    },
+                    age: {
+                        type: String,
+                        value: ''
+                    },
+                    image: {
+                        type: String,
+                        value: 'http://1.bp.blogspot.com/-AlMy6MLjjKc/VYxF-aM_QzI/AAAAAAAAAZc/2tM50UEcD8k/s1600/myAvatar.png'
+                    },
+                    status: {
+                        type: String,
+                        value: 'on'
+                    },
+                    language: {
+                        type: Object,
+                        value: {}
                     }
 
                 };
             }
 
-            //this function simulates the login of a user, the function compares hard-coding data, if username and password match with hard-			coding data, the function return true
-            static userAuthentication(username, password) {
-                return username === "DavidSilvestre" && password === "polymer";
-            }
-
-            //This function compares two passwords and returns true if the passwords are the same or false if the passwords are different
-            static comparePasswords(pasworone, passwordtwo) {
-                return pasworone === passwordtwo;
-            }
 
             //this is an event, which is executed by clicking the "Iniciar sesión" button
             login() {
-                if (!LoginComponent.userAuthentication(this.username, this.password)) {
-                    alert("El usuario inicio sesión");
-                } else {
-                    alert("Usuario o Contraseña incorrecta");
-                }
+                this.dispatchEvent(new CustomEvent('login-user', {
+                    bubbles: false,
+                    composed: false,
+                    detail: {
+                        username: this.username,
+                        password: this.password
+                    }
+                }));
             }
 
             //this is an event, which is executed by clicking the "Registrar usuario" button
-            register() {
-                if (LoginComponent.comparePasswords(this.password, this.passwordConfirm)) {
-                    alert("Usuario Registrado");
-                } else {
-                    alert("Las contraseñas no coiciden");
-                }
+            signin() {
+                this.dispatchEvent(new CustomEvent('register-user', {
+                    bubbles: false,
+                    composed: false,
+                    detail: {
+                        username: this.username,
+                        password: this.password,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        age: this.age,
+                        email: this.email,
+                        image: this.image,
+                        status: this.status
+                    }
+                }));
             }
 
             toggleContainer() {
