@@ -22,9 +22,9 @@
 
         </style>
         <div class="login" hidden$="{{!toggle}}">
-            <h2>Iniciar sesión</h2>
-            <p>¿No tienes cuenta? Da clic
-                <paper-button on-tap="toggleContainer">aquí</paper-button>
+            <h2>{{language.form.login}}</h2>
+            <p>{{language.form.sinhup}}
+                <paper-button on-tap="toggleContainer">{{language.form.buton}}</paper-button>
                 <paper-input label="{{language.form.userName}}" value="{{username}}"></paper-input>
                 <paper-input label="{{language.form.password}}" type="password" value="{{password}}"></paper-input>
                 <div class="button-container">
@@ -33,9 +33,9 @@
 
         </div>
         <div class="signin" hidden$="{{toggle}}">
-            <h2>Iniciar sesión</h2>
-            <p>Ya tienes cuenta Inicia sesión
-                <paper-button on-tap="toggleContainer">aquí</paper-button>
+            <h2>{{language.form.registerCount}}</h2>
+            <p>{{language.form.singin}}
+                <paper-button on-tap="toggleContainer">{{language.form.buton}}</paper-button>
                 <paper-input label="{{language.form.userName}}" value="{{username}}"></paper-input>
                 <paper-input label="{{language.form.name}}" value="{{firstName}}"></paper-input>
                 <paper-input label="{{language.form.lastName}}" value="{{lastName}}"></paper-input>
